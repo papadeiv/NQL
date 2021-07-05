@@ -9,15 +9,6 @@ function  integral = main(kernel, rule, a, b, N)
         disp('Newton-Cotes quadrature formula on (excat) equispaced nodes will be used which has an order of precision')
         disp(N-1)
     else
-        % Exact Legendre's nodes for n=7 (7-th degree polynomial)
-        legendre_exact_nodes = [0.0000000000000000;
-                                0.4058451513773972;
-                                -0.4058451513773972;
-                                -0.7415311855993945;
-                                0.7415311855993945;
-                                -0.9491079123427585;
-                                0.9491079123427585];
-        sorted_nodes = sort(legendre_exact_nodes);
         % compute the coefficients of the linear map associated to the interval [a,b] for the G-L rule
         coefficients(1) = (1/2)*(b-a);
         coefficients(2) = (1/2)*(a+b);
