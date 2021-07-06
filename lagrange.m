@@ -34,7 +34,9 @@ function basis = lagrange(nodes)
             grid on
             p(n)=plot(x,polynomials, 'LineWidth', 3, 'color', color(n,:), 'DisplayName',sprintf('$ l_{%d}(x) $', n-1));
         end
-        plot(nodes, zeros(length(nodes)), 'o','MarkerSize',10, 'MarkerEdgeColor','k','MarkerFaceColor','#7E2F8E')
+        for n=1:N
+            plot(nodes(n), 0, 'o','MarkerSize',10, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', color(n,:));
+        end
 
         leg = legend(p,'Interpreter', 'latex','Orientation','horizontal','NumColumns',4);
         set(leg, 'Location', 'bestoutside', 'FontSize', 15);
