@@ -1,5 +1,6 @@
 function nodes = legendre(N)
     global print_flag;
+    global tabulated;
     % Import colors from custom-defined colormap
     color = cmap(N+1,1);
     % Define coefficient matrix
@@ -11,9 +12,10 @@ function nodes = legendre(N)
     coefficients(2,2) = 1;
     % Construct the coefficient matrix
     for n=3:N+1
-        A = (2*n+1)/(n+1);
+        m = n-1;
+        A = (2*m-1)/m;
         B = 0;
-        C = n/(n+1);
+        C = (m-1)/m;
         coefficients(n,2:n) = A*coefficients(n-1,1:n-1);
         coefficients(n,:) = coefficients(n,:) - C*coefficients(n-2,:);
     end
@@ -38,23 +40,27 @@ function nodes = legendre(N)
             grid on
             p(n+1) = plot(x,polynomials,'LineWidth',3, 'color', color(n+1,:), 'DisplayName',sprintf('$ P_{%d}(x) $', n));
         end
-        % Find and extract indeces of zero-crossing values of the polynomial
-        % array i.e. the contiguous cells of the array that change sign (as per Rolle's theorem)
-        counter = 0;
-        for k=2:length(polynomials)
-            if polynomials(k-1)*polynomials(k) <= 0
-                counter = counter + 1;
-                indeces(counter,:) = [k-1,k];
+        if tabulated==0 % Compute the roots of Legendre-polynomials via linear interpolation
+            % Find and extract indeces of zero-crossing values of the polynomial
+            % array i.e. the contiguous cells of the array that change sign (as per Rolle's theorem)
+            counter = 0;
+            for k=2:length(polynomials)
+                if polynomials(k-1)*polynomials(k) <= 0
+                    counter = counter + 1;
+                    indeces(counter,:) = [k-1,k];
+                end
             end
+            nodes = zeros(counter,1);
+            % Find the values in x associated to the zero-crossing cells
+            % and interpolate linearly to compute the associated nodes
+            for j=1:counter
+                nodes(j) = x(indeces(j,1)) + (polynomials(indeces(j,1))*(x(indeces(j,1))-x(indeces(j,2))))/(polynomials(indeces(j,1))-polynomials(indeces(j,2)));         
+            end
+        else % Use tabulated values of Legendre's roots in double-precision (16 digits)
+            nodes = tab_legendre(N);
         end
-        nodes = zeros(counter,1);
-        % Find the values in x associated to the zero-crossing cells
-        % and interpolate linearly to compute the associated nodes
-        for j=1:counter
-            nodes(j) = x(indeces(j,1)) + (polynomials(indeces(j,1))*(x(indeces(j,1))-x(indeces(j,2))))/(polynomials(indeces(j,1))-polynomials(indeces(j,2)));         
-        end
+        % Plot the nodes of the Legendre's n-th polynomial
         if print_flag==1
-            % Plot the nodes of the Legendre's n-th polynomial
             plot(nodes,zeros(length(nodes)),'o','MarkerSize',10, 'MarkerEdgeColor','k','MarkerFaceColor', color(n+1,:));
         end
     end
