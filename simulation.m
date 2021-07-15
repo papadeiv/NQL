@@ -11,9 +11,9 @@ a = 0;
 b = 1;
 rule = ["Newton-Cotes";"Gauss-Legendre"];
 
-nodes = [24];
-precision = 1000;
-IEEEaccuracy = 1e-15.*ones(precision,1);
+nodes = [16];
+precision = 10000;
+IEEEaccuracy = eps*ones(precision,1);
 
 for j=1:length(nodes)
     n = nodes(j);
@@ -22,6 +22,7 @@ for j=1:length(nodes)
     aposteriori_exact = zeros(precision,1);
     aposteriori_asymp = zeros(precision,1);
     for k=1:precision
+        tic
         print_flag = 1 + (k-precision);
         % define the integrand function (Muntz monomial of non-integer degree lambda(r))
         kernel = @(x) x.^lambda(k);
@@ -37,6 +38,7 @@ for j=1:length(nodes)
         common_factor = -2^(1+lambda(k))*2*sin(pi*lambda(k));
         aposteriori_exact(k) = common_factor*2^(-lambda(k))*lambda(k)*(beta(z,w)/(den) - beta(z,2 + w)/(2 + den));
         aposteriori_asymp(k) = common_factor*2^(-lambda(k))*(1+2*n)^(-t)*gamma(t);
+        toc
     end
     text = ['n = ', num2str(n)];
     figure
