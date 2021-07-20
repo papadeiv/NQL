@@ -2,9 +2,14 @@ close all
 clear all
 clc
 
-global print_flag;
+format long
+
+global print_polynomials;
+global precision;
 global tabulated;
 
+print_polynomials = 0;
+precision = 50;
 tabulated = 1;
 
 a = 0;
@@ -12,18 +17,18 @@ b = 1;
 rule = ["Newton-Cotes";"Gauss-Legendre"];
 
 nodes = [16];
-precision = 10000;
-IEEEaccuracy = eps*ones(precision,1);
+samples = 200;
+IEEEaccuracy = eps*ones(samples,1);
 
 for j=1:length(nodes)
     n = nodes(j);
-    lambda = linspace(0,2*n,precision);
-    apriori = zeros(precision,1);
-    aposteriori_exact = zeros(precision,1);
-    aposteriori_asymp = zeros(precision,1);
-    for k=1:precision
+    lambda = linspace(0,2*n,samples);
+    apriori = zeros(samples,1);
+    aposteriori_exact = zeros(samples,1);
+    aposteriori_asymp = zeros(samples,1);
+    for k=1:samples
         tic
-        print_flag = 1 + (k-precision);
+        print_flag = 1 + (k-samples);
         % define the integrand function (Muntz monomial of non-integer degree lambda(r))
         kernel = @(x) x.^lambda(k);
         % compute a-priori estimate of Muntz monomial
@@ -47,7 +52,7 @@ for j=1:length(nodes)
     semilogy(lambda,apriori, 'color', 'r','LineWidth', 2.5, 'DisplayName', 'A-priori estimate');
     semilogy(lambda,aposteriori_exact, 'color', 'b', 'LineWidth', 2.5, 'DisplayName', 'A-posteriori exact estimate');
     semilogy(lambda,aposteriori_asymp, '--', 'color', '#7E2F8E', 'LineWidth', 2.5, 'DisplayName', 'A-posteriori asymptotic estimate');
-    leg = legend('Interpreter', 'latex', 'Interpreter', 'latex', 'Interpreter', 'latex');
+    leg = legend('Interpreter', 'latex')%, 'Interpreter', 'latex', 'Interpreter', 'latex');
     set(leg, 'Location', 'best', 'FontSize', 18);
     xlabel('\lambda')
     title(text)

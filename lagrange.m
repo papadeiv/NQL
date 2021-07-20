@@ -1,4 +1,7 @@
 function basis = lagrange(nodes)
+    % import and set arbitrary arithmetic precision (vpa) of calculations
+    global precision;
+    digits(precision);
     % extract number of nodes
     N = length(nodes);
     % Import colors from custom-defined colormap
@@ -13,6 +16,7 @@ function basis = lagrange(nodes)
     end
     % construct all the lagrangian monomial iteratively and extract the lagrangian basis of the (N-1)-th order
     basis = zeros(N,N);
+    basis = vpa(basis);
     for j=1:N
         % of all the nodes in [a,b] remove the one associated to the j-th basis function (in which its value has to be 1)
         lagrangian_nodes = nodes([1:j-1,j+1:N]);
@@ -20,9 +24,9 @@ function basis = lagrange(nodes)
         basis(j,:) = extract_basis(lagrangian_nodes,nodes(j)); % the first row obviously stores the coefficient of the power x^0
     end
     
-    global print_flag;
+    global print_polynomials;
     
-    if print_flag==1
+    if print_polynomials==1
         figure('units','normalized','outerposition',[0 0 1 1])
         % to represent the polynomial basis compute the scalar product between the coefficients in the basis matrix and the values of (x^0, x^1, x^2, ...) associated to each x in [a,b]
         for n=1:N

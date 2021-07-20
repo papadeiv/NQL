@@ -1,4 +1,7 @@
-function integral = quadrature(kernel,nodes,affine_map_coeff)
+function integral = quadrature(kernel, interval, nodes,affine_map_coeff)
+    % import and set arbitrary arithmetic precision (vpa) of calculations
+    global precision;
+    digits(precision);
     alpha = affine_map_coeff(1);
     beta = affine_map_coeff(2);
     N = length(nodes);
@@ -7,7 +10,7 @@ function integral = quadrature(kernel,nodes,affine_map_coeff)
     disp('The interpolating Lagrange polynomial and Lagrangian basis function are of degree')
     disp(N-1)
     % compute the weights associated to the nodes
-    weights = lagrangian_weights(nodes);
+    weights = vpa(lagrangian_weights(nodes, interval));
     % compute the (exact) values of the kernel function in corrispondence of the nodes
     f_values = kernel(alpha*nodes + beta);
     % compute the quadrature integral approximation
