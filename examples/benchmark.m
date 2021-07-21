@@ -1,3 +1,5 @@
+addpath('../')
+
 close all
 clear all
 clc
@@ -9,8 +11,8 @@ global print_quadrature;
 global precision;
 global tabulated;
 
-print_polynomials = 1;
-print_quadrature = 1;
+print_polynomials = 0;
+print_quadrature = 0;
 precision = 100;
 tabulated = 1;
 

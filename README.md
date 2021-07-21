@@ -37,14 +37,14 @@ The user can launch one of the scripts contained in the [examples](examples/test
 | Newton-Cotes (N=4)           | Gauss-Legendre (N=4) 		   |
 | -----------------------------| ------------------------------|
 | ![](examples/images/NC-4.svg)| ![](examples/images/GL-4.svg) |
-| -----------------------------| ------------------------------|
+
 | Newton-Cotes (N=8)           | Gauss-Legendre (N=8)          |
 | -----------------------------| ------------------------------|
 | ![](examples/images/NC-8.svg)| ![](examples/images/GL-8.svg) |
 
 ## Suggested benchmarks
 This suite was built for educational purposes and as a quick first reference for testing more performant softwares for numerical integration. As a benchmark for its performance against fairly demanding computations in the script [benchmark.m](examples/benchmark.m) the results displayed in Figure 2 from the paper [Design of quadrature rules for Müntz and Müntz-logarithmic polynomials using monomial transformation](https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.2684) are replicated. The kernel is a sequence of Müntz monomials of the form <img src="https://render.githubusercontent.com/render/math?math=f(x)=x^{\lambda}">
-where `lambda` is a real-valued exponent ranging continuosly from 0 to 48. With _N=16_ nodes of quadrature the various errors are
+where `lambda` is a real-valued exponent ranging continuosly from 0 to 48; in the simulation such continuous interval is discretised in _500_ samples while using a precision of _100_ (decimal) digits. With _N=16_ nodes the errors are
 
 ![](examples/images/error16.svg)
 
@@ -52,4 +52,4 @@ while with _N=24_ nodes of interpolation the errors are
 
 ![](examples/images/error24.svg)
 
-where, with an abuse of notation, the _a-priori estimate_ is referred to the L1-norm of the difference between the exact definite integral and NQL's output. The tests, ran both on a i5-1035G1 quad-core processor with 8 GB of RAM, took approximately 4 hours each to complete. The library does satisfy the expected accuracy in terms of IEEE d.p..
+where, with an abuse of notation, the _a-priori estimate_ is referred to the L1-norm of the difference between the exact definite integral and NQL's output. The tests, ran both on a i5-1035G1 quad-core processor with 8 GB of RAM, took approximately 3 hours to complete. The library does satisfy the expected accuracy in terms of IEEE d.p..
