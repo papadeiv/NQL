@@ -32,14 +32,14 @@ To support data management and visualisation the following functions have been p
 - [x] `doubledot.m` computes the inner product between two vectors but in ascending order of values so to avoid numerical cancellation;
 
 ## Examples
-The user can launch one of the scripts contained in the [examples](examples/test.m) directory, specifically the purposely-defined `test.m` script, to get accustomed with the settings and outputs of the library. In there both Newton-Cotes and Gauss-Legendre formulae are used to integrate numerically the function <img src="https://render.githubusercontent.com/render/math?math=f(x)=2 sinh(xlog(1+x))+cos^2(x)"> in the interval <img src="https://render.githubusercontent.com/render/math?math=[a=-\frac{\pi}{4},\frac{\pi}{2}]">. The Lagrange's interpolating polynomial is reported for both cases formulae
+The user can launch one of the scripts contained in the [examples](examples/test.m) directory, specifically the purposely-defined `test.m` script, to get accustomed with the settings and outputs of the library. In there both Newton-Cotes and Gauss-Legendre formulae are used to integrate numerically the function <img src="https://render.githubusercontent.com/render/math?math=f(x)=2 sinh(xlog(1 + x))+cos^2(x)"> in the interval <img src="https://render.githubusercontent.com/render/math?math=[a=-\frac{\pi}{4},b=\frac{\pi}{2}]">. The Lagrange's interpolating polynomial is reported for both formulae
 
-| Newton-Cotes (N=4)  | Gauss-Legendre (N=4) |
-| --------------------| ---------------------|
+| Newton-Cotes (N=4)           | Gauss-Legendre (N=4) 		   |
+| -----------------------------| ------------------------------|
 | ![](examples/images/NC-4.svg)| ![](examples/images/GL-4.svg) |
-| --------------------| ---------------------|
-| Newton-Cotes (N=8)  | Gauss-Legendre (N=8) |
-| --------------------| ---------------------|
+| -----------------------------| ------------------------------|
+| Newton-Cotes (N=8)           | Gauss-Legendre (N=8)          |
+| -----------------------------| ------------------------------|
 | ![](examples/images/NC-8.svg)| ![](examples/images/GL-8.svg) |
 
 ## Suggested benchmarks
