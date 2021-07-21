@@ -1,4 +1,8 @@
 function  integral = main(kernel, rule, a, b, N)
+    disp('The number of nodes is ')
+    disp(N)
+    disp('The Lagrange interpolating polynomial and Lagrangian basis functions have degree')
+    disp(N-1)
     % import and set arbitrary arithmetic precision (vpa) of calculations
     global precision;
     digits(precision);
@@ -11,7 +15,7 @@ function  integral = main(kernel, rule, a, b, N)
         nodes = linspace(a,b,N);
         % define the integration interval
         I = [a, b];
-        disp('Newton-Cotes quadrature formula on (excat) equispaced nodes will be used which has an order of precision')
+        disp('Newton-Cotes quadrature formula on equispaced nodes will be used which has an order of precision')
         disp(N-1)
     else
         % compute the coefficients of the linear map associated to the interval [a,b] for the G-L rule
@@ -26,6 +30,6 @@ function  integral = main(kernel, rule, a, b, N)
         disp('Gauss-Legendre quadrature formula will be used which has the roots of Legendre polynomials as nodes and whose order of precision is')
         disp(2*N-1)
     end
-    disp('The quadrature definite integral is ')
-    integral = jacobian*vpa(quadrature(kernel, I, nodes, coefficients))
+    integral = jacobian*vpa(quadrature(kernel, I, nodes, coefficients));
+    sprintf('The approximated integral is $I_h = $ %f', integral);
 end
