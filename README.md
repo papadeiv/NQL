@@ -1,6 +1,6 @@
 # NQL - Numerical Quadrature Library
 
-This library implements in MATLAB an automatic numerical integration routine using __Newton-Cotes__ and __Gauss-Legendre__ formulae.
+This library implements an automatic numerical integration routine in MATLAB using __Newton-Cotes__ and __Gauss-Legendre__ formulae. In order to run, John D'Errico's [HPF toolbox](https://it.mathworks.com/matlabcentral/fileexchange/36534-hpf-a-big-decimal-class) must be installed.
 
 ## Main structure
 The library consists of
@@ -21,7 +21,7 @@ The simulation can be launched by script or by calling `main.m` direclty from th
 ## Options
 The values of the global variables have to be specified either if the user does not intend to use such options. The latter are:
 - [x] `tabulated` The library can optionally choose to compute numerically the roots of the Legendre's polynomial via linear interpolation (set flag variable to 0) or to reference them from tabulated values with 289 decimal digits provided by [Pomax's repository](https://pomax.github.io/bezierinfo/legendre-gauss.html) (set flag to 1);
-- [x] `precision` Numerical integration famously requires a high degree of precision in arithmetic in order to obtain sufficiently accurate results. Therefore the library allows the user to select such precision to an arbitrary value by setting this variable to the integer number of decimal digits the computation requires (e.g. `precision=16` sets the library to run with MATLAB's default precision which is 16 digits);
+- [x] `precision` Numerical integration famously requires a high degree of precision in floating-point arithmetic in order to obtain sufficiently accurate results. Therefore the library allows the user to select the integer number of (decimal) digits with which extract the tabulated Legendre's nodes (e.g. `precision=16` sets the library to run with MATLAB's default double precision as per the IEEE 754 standard);
 - [x] `print_polynomials` To display Legendre's polynomials and Lagrange's basis functions depicted above set the flag value to 1 otherwise set it to 0; if Gauss-Legendre formula is used the Lagrangian basis function are depicted in [-1,1] instead of [a,b];
 - [x] `print_quadrature` To display the Lagrange's interpolating polynomial overlayed with the target kernel of integration set the flag value to 1 otherwise set it to 0; if Gauss-Legendre is used both functions are plotted in [-1,1] instead of [a,b]  (see __Examples__ below).
 
@@ -44,7 +44,7 @@ The user can launch one of the scripts contained in the [examples](examples/test
 
 ## Suggested benchmarks
 This suite was built for educational purposes and as a quick first reference for testing more performant softwares for numerical integration. As a benchmark for its performance against fairly demanding computations in the script [benchmark.m](examples/benchmark.m) the results displayed in Figure 2 from the paper [Design of quadrature rules for Müntz and Müntz-logarithmic polynomials using monomial transformation](https://onlinelibrary.wiley.com/doi/abs/10.1002/nme.2684) are replicated. The kernel is a sequence of Müntz monomials of the form <img src="https://render.githubusercontent.com/render/math?math=f(x)=x^{\lambda}">
-where `lambda` is a real-valued exponent ranging continuosly from 0 to 48; in the simulation such continuous interval is discretised in _500_ samples while using a precision of _100_ (decimal) digits. With _N=16_ nodes the errors are
+where `lambda` is a real-valued exponent ranging continuosly from 0 to 40; in the simulation such continuous interval is discretised in _1000_ equispaced samples while using a precision of _16_ (decimal) digits for the Gauss-Legendre quadrature. With _N=16_ nodes the errors are
 
 ![](examples/images/error16.svg)
 
@@ -52,4 +52,4 @@ while with _N=24_ nodes of interpolation the errors are
 
 ![](examples/images/error24.svg)
 
-where, with an abuse of notation, the _a-priori estimate_ is referred to the L1-norm of the difference between the exact definite integral and NQL's output. The tests, ran both on a i5-1035G1 quad-core processor with 8 GB of RAM, took approximately 3 hours to complete. The library does satisfy the expected accuracy in terms of IEEE d.p..
+where, with an abuse of notation, the _a-priori estimate_ is referred to the L1-norm of the difference between the exact definite integral and NQL's output. The tests, ran both on a i5-1035G1 quad-core processor with 8 GB of RAM, took approximately 4 hours to complete. Observe that the library's output does satisfy the predicted `2n-1` degree of precision of a Gauss-Legendre's formula in terms of asbolute error.

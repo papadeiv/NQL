@@ -22,7 +22,7 @@ rule = ["Newton-Cotes";"Gauss-Legendre"];
 
 kernel = @(x) 2*sinh(x.*log(1+x))+(cos(x)).^2;
 
-nodes = [4,12;
+nodes = [4,12];
 
 for n=1:length(nodes)
     for r=1:2
